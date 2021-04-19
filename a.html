@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>前端定位模块</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    body {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+
+    #pos-area {
+      background-color: #009DDC;
+      margin-bottom: 10px;
+      width: 100%;
+      overflow: scroll;
+      text-align: left;
+      color: white;
+    }
+
+    #demo {
+      padding: 8px;
+      font-size: small;
+    }
+
+    #btn-area {
+      height: 100px;
+    }
+
+    button {
+      margin-bottom: 10px;
+      padding: 12px 8px;
+      width: 42%;
+      border-radius: 8px;
+      background-color: #009DDC;
+      color: white;
+    }
+  </style>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.4.1/vconsole.min.js"></script>
+  <script>
+    new VConsole()
+  </script>
+  <script src="http://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+  <script type="text/javascript" src="https://mapapi.qq.com/web/mapComponents/geoLocation/v/geolocation.min.js"></script>
+</head>
+<body>
+  <div id="pos-area">
+    <p id="demo">点击下面的按钮，获得对应信息：<br /></p>
+  </div>
+
+  <div id="btn-area">
+    <button onClick="geolocation.getLocation(showPosition, showErr, options)">获取精确定位信息</button>
+    <button onClick="geolocation.getIpLocation(showPosition, showErr)">获取粗糙定位信息</button>
+    <button onClick="showWatchPosition()">开始监听位置</button>
+    <button onClick="showClearWatch()">停止监听位置</button>
+  </div>
+  <script type="text/JavaScript">
+        // var geolocation = new qq.maps.Geolocation("NBABZ-E4SK3-3XC3M-3N4QF-HWEVO-3IFBV", "myapp");
+ 
+        // document.getElementById("pos-area").style.height = (document.body.clientHeight - 110) + 'px';
+ 
+        // var positionNum = 0;
+        // var options = {timeout: 8000};
+        // function showPosition(position) {
+        //     positionNum ++;
+        //     document.getElementById("demo").innerHTML += "序号：" + positionNum;
+        //     document.getElementById("demo").appendChild(document.createElement('pre')).innerHTML = JSON.stringify(position, null, 4);
+        //     document.getElementById("pos-area").scrollTop = document.getElementById("pos-area").scrollHeight;
+        // };
+ 
+        // function showErr() {
+        //     positionNum ++;
+        //     document.getElementById("demo").innerHTML += "序号：" + positionNum;
+        //     document.getElementById("demo").appendChild(document.createElement('p')).innerHTML = "定位失败！";
+        //     document.getElementById("pos-area").scrollTop = document.getElementById("pos-area").scrollHeight;
+        // };
+ 
+        // function showWatchPosition() {
+        //     document.getElementById("demo").innerHTML += "开始监听位置！<br /><br />";
+        //     geolocation.watchPosition(showPosition);
+        //     document.getElementById("pos-area").scrollTop = document.getElementById("pos-area").scrollHeight;
+        // };
+ 
+        // function showClearWatch() {
+        //     geolocation.clearWatch();
+        //     document.getElementById("demo").innerHTML += "停止监听位置！<br /><br />";
+        //     document.getElementById("pos-area").scrollTop = document.getElementById("pos-area").scrollHeight;
+        // };
+
+
+        wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: 'wx42fffa0138630525', // 必填，公众号的唯一标识
+          timestamp: 1618802041, // 必填，生成签名的时间戳
+          nonceStr: '56X82a6DLfQ35cyG', // 必填，生成签名的随机串
+          signature: '0bf2350869232f043c8f11756ba1ec68b399577e',// 必填，签名
+          jsApiList: ["onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone"] // 必填，需要使用的JS接口列表
+        });
+        wx.getLocation({
+          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+          success: function (res) {
+            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            var speed = res.speed; // 速度，以米/每秒计
+            var accuracy = res.accuracy; // 位置精度
+            console.log(latitude, longitude, speed, accuracy)
+          }
+        });
+
+
+
+
+
+        // "{\"debug\":false,\"appId\":\"wx42fffa0138630525\",\"timestamp\":\"1618802041\",\"nonceStr\":\"56X82a6DLfQ35cyG\",\"signature\":\"0bf2350869232f043c8f11756ba1ec68b399577e\",\"jsApiList\":[\"onMenuShareTimeline\",\"onMenuShareAppMessage\",\"onMenuShareQQ\",\"onMenuShareWeibo\",\"onMenuShareQZone\"]}"
+    </script>
+</body>
+</html>
